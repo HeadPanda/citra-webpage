@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+        <meta name="theme-color" content="#FF8E03">
+        <meta property="og:title" content="Building for Windows &middot; Citra" />
+        <meta property="og:site_name" content="Citra" />
+        <meta property="og:url" content="https://citra-emu.org/wiki/building-for-windows/" />
+            <meta property="og:description" content="MSVC Build for Windows Minimal Dependencies On Windows, all library dependencies are automatically included within the &ldquo;externals&rdquo; folder or can be downloaded on-demand. To build Citra, you simply need to install:
+Visual Studio 2022 - Make sure to select C&#43;&#43; support in the installer.
+CMake - Used to generate Visual Studio project files. Vulkan SDK - Make sure to select Latest SDK.
+Git - We recommend Git for Windows. While installing Git Bash, you should tell it to include Git in your system path." />
+<meta name="description" content="MSVC Build for Windows Minimal Dependencies On Windows, all library dependencies are automatically included within the &ldquo;externals&rdquo; folder or can be downloaded on-demand. To build Citra, you simply need to install:
+Visual Studio 2022 - Make sure to select C&#43;&#43; support in the installer.
+CMake - Used to generate Visual Studio project files. Vulkan SDK - Make sure to select Latest SDK.
+Git - We recommend Git for Windows. While installing Git Bash, you should tell it to include Git in your system path." />
+<meta property="og:type" content="website" />
+
+
+        <link rel="icon" href="https://citra-emu.org/favicon.ico" />
+        <link rel="shortcut icon" href="https://citra-emu.org/favicon.ico" type="image/x-icon" />
+        <link rel="canonical" href="https://citra-emu.org/wiki/building-for-windows/">
+
+        
+
+        <title>Building for Windows - Citra</title>
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Dosis" rel="stylesheet">
+        
+        <link rel="stylesheet" href="https://citra-emu.org/scss/style.min.css" />
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+        
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-73966905-1', 'auto');
+                ga('send', 'pageview');
+            </script>
+        
+    </head>
+
+    <body>
+        <nav class="navbar navbar-default navbar-wrapper navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">&nbsp;</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="index-1 first"><a href="/" title="Blog Posts">Blog</a></li>
+                <li class="index-2"><a href="/download/" title="Download Citra">Download</a></li>
+                <li class="index-3"><a href="/help/" title="Help">Help</a></li>
+                <li class="index-4"><a href="/wiki/faq/" title="Frequently Asked Questions">FAQ</a></li>
+                <li class="index-5"><a href="/game/" title="Game Compatibility">Compatibility</a></li>
+                <li class="index-6"><a href="/wiki/home/" title="Wiki Homepage">Dev Wiki</a></li>
+
+                <li class="index-7 dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       role="button" aria-haspopup="true" aria-expanded="false">
+                        Social <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li class="index-1 first"><a href="/rules/" title="">Rules</a></li>
+                        <li class="index-2"><a href="https://community.citra-emu.org/" title="Forums">Community Forums</a></li>
+                        <li class="index-3 last"><a href="/discord/" title="Discord Channel">Discord Chat</a></li>
+                    </ul>
+                </li>
+
+                <li class="index-8 dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                                aria-haspopup="true" aria-expanded="false">
+                        Media <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li class="index-1 first"><a href="/screenshots/" title="Screenshots">Screenshots</a></li>
+                        <li class="index-2 last"><a href="https://www.youtube.com/channel/UC_dcdgzuapBtAY4ol3x-90Q"
+                                                    title="Youtube Channel">Videos</a></li>
+                    </ul>
+                </li>
+
+                <li class="index-9 last"><a href="https://www.patreon.com/citraemu" title="Patreon">Patreon</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+        <div id="mainContainer" class="container" >
+            <div class="row">
+                
+            </div>
+
+            <div class="row row-fluid">
+                <div id="content" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 pull-right">
+                    
+  <div class="alert alert-warning">
+    <div class="row">
+      <div class="col-md-2">
+        <strong>Read First!</strong>
+      </div>
+      <div class="col-md-10">
+        <p>The below wiki article is based on user submitted content.<br>
+        Please verify <strong>all</strong> hyperlinks and terminal commands below!</p>
+        See a mistake? Want to contribute? <a href="https://github.com/citra-emu/citra/wiki/building-for-windows/_edit/">Edit this article on Github</a>
+      </div>
+    </div>
+  </div>
+
+	<h1>Building for Windows</h1>
+	<h2 id="msvc-build-for-windows">MSVC Build for Windows</h2>
+<h3 id="minimal-dependencies">Minimal Dependencies</h3>
+<p>On Windows, all library dependencies are automatically included within the &ldquo;externals&rdquo; folder or can be downloaded on-demand. To build Citra, you simply need to install:</p>
+<ul>
+<li>
+<p><strong><a href="https://visualstudio.microsoft.com/vs/">Visual Studio 2022</a></strong> - <strong>Make sure to select C++ support in the installer</strong>.</p>
+</li>
+<li>
+<p><strong><a href="https://cmake.org/download/">CMake</a></strong> - Used to generate Visual Studio project files.
+<img src="https://i.imgur.com/bUdUruA.png" alt="2"></p>
+</li>
+<li>
+<p><strong><a href="https://vulkan.lunarg.com/sdk/home#windows">Vulkan SDK</a></strong> - <strong>Make sure to select Latest SDK.</strong></p>
+</li>
+<li>
+<p><strong>Git</strong> - We recommend <a href="https://gitforwindows.org/">Git for Windows</a>.
+<img src="https://i.imgur.com/Na1YrHO.png" alt="3"></p>
+</li>
+<li>
+<p>While installing Git Bash, you should tell it to include Git in your system path. (Choose the &ldquo;Git from the command line and also from 3rd-party software&rdquo; option.) If you missed that, don&rsquo;t worry, you&rsquo;ll just have to manually tell CMake where your git.exe is, since it&rsquo;s used to include version info into the built executable.</p>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/DOqoZEL.png" alt="4"></p>
+<h3 id="cloning-citra-in-git">Cloning Citra in Git:</h3>
+<h4 id="master">Master:</h4>
+<pre tabindex="0"><code>git clone --recursive https://github.com/citra-emu/citra.git
+cd citra
+</code></pre><h4 id="canary">Canary:</h4>
+<pre tabindex="0"><code>git clone --recursive https://github.com/citra-emu/citra-canary.git
+cd citra-canary
+</code></pre><p><img src="https://i.imgur.com/OUIJlPM.png" alt="9"></p>
+<p><em>(Note: Citra by default downloads to <code>C:\Users\\citra</code> (Master) or <code>C:\Users\\citra-canary</code> (Canary)</em></p>
+<h3 id="building">Building</h3>
+<ul>
+<li>Open the CMake GUI application and point it to the <code>citra</code> (Master) or <code>citra-canary</code> (Canary) directory.</li>
+</ul>
+<p><img src="https://i.imgur.com/N8d67va.png" alt="10"></p>
+<ul>
+<li>For the build directory, use a <code>build/</code> subdirectory inside the source directory or some other directory of your choice. (Tell CMake to create it.)</li>
+</ul>
+<p><img src="https://i.imgur.com/3b6Bd8i.png" alt="11"></p>
+<ul>
+<li>Click the &ldquo;Configure&rdquo; button and choose <code>Visual Studio 17 2022</code>, with <code>x64</code> for the optional platform.</li>
+</ul>
+<p><img src="https://i.imgur.com/00fxoOr.png" alt="12"></p>
+<pre><code>* NOTE: If you get errors like &quot;XXX does not contain a CMakeLists.txt file&quot; at this step, it means you didn't use the `--recursive` flag in the clone step, or you used tools other than the git CLI. Please run &quot;git submodule update --init --recursive&quot; to get remaining dependencies.
+</code></pre>
+<ul>
+<li>Click &ldquo;Generate&rdquo; to create the project files.</li>
+</ul>
+<p><img src="https://i.imgur.com/ujO41Oo.png" alt="14"></p>
+<ul>
+<li>Open the solution file citra.sln in Visual Studio 2022, which is located in the build folder.</li>
+</ul>
+<p><img src="https://i.imgur.com/v0MRcpl.png" alt="15"></p>
+<ul>
+<li>Depending on which frontend (SDL2 or Qt) you want to build or run, select &ldquo;citra&rdquo; or &ldquo;citra-qt&rdquo; in the Solution Explorer, right-click and &ldquo;Set as Startup Project&rdquo;.</li>
+</ul>
+<p><img src="https://i.imgur.com/kJXBsAc.png" alt="16">
+<img src="https://i.imgur.com/ouAYicR.png" alt="17"></p>
+<ul>
+<li>Select the appropriate build type, Debug for debug purposes or Release for performance (in case of doubt choose the latter).</li>
+</ul>
+<p><img src="https://i.imgur.com/g6gY1wV.png" alt="18"></p>
+<ul>
+<li>Press F5 or select Build → Rebuild Solution in the menu.</li>
+</ul>
+<p><img src="https://i.imgur.com/ElN5BdS.png" alt="19"></p>
+<ul>
+<li>NOTE: Please refer to <a href="https://github.com/citra-emu/citra/wiki/Common-Issues">Common Issues</a> if any errors. If you did not find a solution feel free to ask us in the IRC channel: #citra @ <a href="https://webchat.freenode.net/">Freenode</a>.</li>
+</ul>
+<h2 id="mingw-w64-build-with-msys2">MinGW-w64 Build with MSYS2</h2>
+<h4 id="prerequisites-to-install">Prerequisites to install</h4>
+<ul>
+<li><a href="http://msys2.github.io/">MSYS2</a></li>
+<li><a href="https://vulkan.lunarg.com/sdk/home#windows">Vulkan SDK</a> - <strong>Make sure to select Latest SDK.</strong></li>
+</ul>
+<p>Make sure to follow the instructions and update to the latest version by running <code>pacman -Syu</code> as many times as needed.</p>
+<h4 id="install-citra-dependencies-for-mingw-w64">Install Citra dependencies for MinGW-w64</h4>
+<ul>
+<li>Open the &ldquo;MSYS2 MinGW 64-bit&rdquo; (mingw64.exe) shell</li>
+<li>Download and install all dependencies using: <code>pacman -S mingw-w64-x86_64-{gcc,SDL2,qt6,cmake} make git</code></li>
+</ul>
+<h4 id="clone-the-citra-repository-with-git">Clone the Citra repository with git.</h4>
+<ul>
+<li><code>git clone --recursive https://github.com/citra-emu/citra.git</code></li>
+<li><code>cd citra</code></li>
+</ul>
+<h4 id="run-the-following-commands-to-build-citra-dynamic-linked-build">Run the following commands to build Citra (dynamic linked build)</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir build <span style="color:#f92672">&amp;&amp;</span> cd build
+</span></span><span style="display:flex;"><span>cmake -G <span style="color:#e6db74">&#34;MSYS Makefiles&#34;</span> -DCMAKE_BUILD_TYPE<span style="color:#f92672">=</span>Release -DCMAKE_CXX_FLAGS<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-DMICROPROFILE_ENABLED=0&#34;</span> ..
+</span></span><span style="display:flex;"><span>make -j4
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># test Citra out with</span>
+</span></span><span style="display:flex;"><span>./bin/citra-qt.exe
+</span></span></code></pre></div><h5 id="note-this-build-is-not-a-static-build-meaning-that-you-need-to-include-all-of-the-dlls-with-the-exe-in-order-to-use-it">Note! This build is not a static build meaning that you need to include all of the dlls with the exe in order to use it.</h5>
+<h4 id="creating-a-static-build-optional">Creating a static build (Optional)</h4>
+<ul>
+<li>Instead of installing <code>mingw-w64-x86_64-qt6</code> install <code>mingw-w64-x86_64-qt6-static</code></li>
+<li>Add <code>-DMINGW_STATIC_BUILD=1</code> to the cmake command line</li>
+</ul>
+<h4 id="building-without-qt-optional">Building without Qt (Optional)</h4>
+<p>Doesn&rsquo;t require the rather large Qt dependency, but you will lack a GUI frontend.</p>
+<ul>
+<li>Pass the <code>-DENABLE_QT=no</code> flag to cmake</li>
+</ul>
+
+
+                </div>
+                <div id="sidebar" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pull-left">
+                    <div id="advertisement" class = "ad">
+  <h3>Advertisement</h3>
+  <ins class="ad adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4126545610079023"
+       data-ad-slot="4223809695"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="tagcloud hidden-sm hidden-xs">
+  <h3>News Tag Cloud</h3>
+  <ul>
+    
+      <li><a class="taxonomy-citra-release" href="/tags/citra-release">citra-release</a></li>
+    
+      <li><a class="taxonomy-feature-update" href="/tags/feature-update">feature-update</a></li>
+    
+      <li><a class="taxonomy-progress-report" href="/tags/progress-report">progress-report</a></li>
+    
+  </ul>
+</div>
+
+<div id="twitter" class="hidden-sm hidden-xs">
+  <a class="twitter-timeline" data-tweet-limit="3" href="https://twitter.com/citraemu?ref_src=twsrc%5Etfw">Tweet Feed</a>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="footer" class="container">
+            <div class="row">
+
+                <div class="col-md-2">
+                    <h1>Citra</h1>
+                    <a href="/entry">Blog</a>
+                    <a href="/download/">Downloads</a>
+                    <a href="/screenshots/">Screenshots</a>
+                    <a href="https://www.patreon.com/citraemu">Patreon</a>
+                    <a href="/donate/">Donate</a>
+                </div>
+
+                <div class="col-md-2">
+                    <h1>Documentation</h1>
+                    <a href="/help/">Help Documents</a>
+                    <a href="/game/">Compatibility</a>
+                    <a href="/wiki/home/">Dev Wiki</a>
+                    <a href="/wiki/faq/">FAQ</a>
+                </div>
+
+                <div class="col-md-2">
+                    <h1>Blog</h1>
+                    <a href="/entry">News &amp; Articles</a>
+                    <a href="https://citra-emu.org/index.xml">RSS 2.0</a>
+                </div>
+
+                <div class="col-md-2">
+                    <h1>Social</h1>
+                    <a href="https://www.youtube.com/channel/UC_dcdgzuapBtAY4ol3x-90Q">YouTube</a>
+                    <a href="https://www.facebook.com/citra.emu">Facebook</a>
+                    <a href="https://twitter.com/citraemu">Twitter</a>
+                    <a href="https://community.citra-emu.org/">Forums</a>
+                    <a href="/discord">Discord</a>
+                    <a href="/chat">IRC</a>
+                    </ul>
+                </div>
+
+                <div class="col-md-2">
+                    <h1>Get Involved</h1>
+                    <a href="https://github.com/citra-emu/citra">GitHub / Source</a>
+                    <a href="https://github.com/citra-emu/citra/issues">Issues</a>
+                    <a href="https://github.com/citra-emu/citra/pulls">Pull Requests</a>
+                </div>
+
+            </div>
+            <div id="footer-bottom">
+                <div id="footer-brand"></div>
+                <div id="footer-legal">Copyright © 2023 Citra Emulator Project</div>
+            </div>
+        </div>
+
+        <script src="https://citra-emu.org/js/script.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css" type="text/css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js" type="text/javascript"></script>
+
+		<script type="text/javascript">
+			window.addEventListener("DOMContentLoaded", function() {
+			baguetteBox.run('.is-img-preview');
+			});
+		</script>
+
+        
+
+        
+    </body>
+
+</html>

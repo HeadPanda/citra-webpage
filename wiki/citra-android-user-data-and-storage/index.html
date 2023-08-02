@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+        <meta name="theme-color" content="#FF8E03">
+        <meta property="og:title" content="Citra Android user data and storage &middot; Citra" />
+        <meta property="og:site_name" content="Citra" />
+        <meta property="og:url" content="https://citra-emu.org/wiki/citra-android-user-data-and-storage/" />
+            <meta property="og:description" content="Citra&rsquo;s user data storage on Citra Android Beta 16&#43; is a bit more complicated than it used to be. This is due to Google mandating that all Android apps need to use SAF (Safe Access Storage) moving forward.
+How to set up your Citra user data folder Click to expand:
+Updating from an older Citra version
+After installing a recent Citra build, you&rsquo;ll be greeted by a pop-up to set up a user data folder." />
+<meta name="description" content="Citra&rsquo;s user data storage on Citra Android Beta 16&#43; is a bit more complicated than it used to be. This is due to Google mandating that all Android apps need to use SAF (Safe Access Storage) moving forward.
+How to set up your Citra user data folder Click to expand:
+Updating from an older Citra version
+After installing a recent Citra build, you&rsquo;ll be greeted by a pop-up to set up a user data folder." />
+<meta property="og:type" content="website" />
+
+
+        <link rel="icon" href="https://citra-emu.org/favicon.ico" />
+        <link rel="shortcut icon" href="https://citra-emu.org/favicon.ico" type="image/x-icon" />
+        <link rel="canonical" href="https://citra-emu.org/wiki/citra-android-user-data-and-storage/">
+
+        
+
+        <title>Citra Android user data and storage - Citra</title>
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu|Dosis" rel="stylesheet">
+        
+        <link rel="stylesheet" href="https://citra-emu.org/scss/style.min.css" />
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+                integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+        
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <script>
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-73966905-1', 'auto');
+                ga('send', 'pageview');
+            </script>
+        
+    </head>
+
+    <body>
+        <nav class="navbar navbar-default navbar-wrapper navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">&nbsp;</a>
+        </div>
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="index-1 first"><a href="/" title="Blog Posts">Blog</a></li>
+                <li class="index-2"><a href="/download/" title="Download Citra">Download</a></li>
+                <li class="index-3"><a href="/help/" title="Help">Help</a></li>
+                <li class="index-4"><a href="/wiki/faq/" title="Frequently Asked Questions">FAQ</a></li>
+                <li class="index-5"><a href="/game/" title="Game Compatibility">Compatibility</a></li>
+                <li class="index-6"><a href="/wiki/home/" title="Wiki Homepage">Dev Wiki</a></li>
+
+                <li class="index-7 dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                       role="button" aria-haspopup="true" aria-expanded="false">
+                        Social <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li class="index-1 first"><a href="/rules/" title="">Rules</a></li>
+                        <li class="index-2"><a href="https://community.citra-emu.org/" title="Forums">Community Forums</a></li>
+                        <li class="index-3 last"><a href="/discord/" title="Discord Channel">Discord Chat</a></li>
+                    </ul>
+                </li>
+
+                <li class="index-8 dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                                aria-haspopup="true" aria-expanded="false">
+                        Media <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li class="index-1 first"><a href="/screenshots/" title="Screenshots">Screenshots</a></li>
+                        <li class="index-2 last"><a href="https://www.youtube.com/channel/UC_dcdgzuapBtAY4ol3x-90Q"
+                                                    title="Youtube Channel">Videos</a></li>
+                    </ul>
+                </li>
+
+                <li class="index-9 last"><a href="https://www.patreon.com/citraemu" title="Patreon">Patreon</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+        <div id="mainContainer" class="container" >
+            <div class="row">
+                
+            </div>
+
+            <div class="row row-fluid">
+                <div id="content" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 pull-right">
+                    
+  <div class="alert alert-warning">
+    <div class="row">
+      <div class="col-md-2">
+        <strong>Read First!</strong>
+      </div>
+      <div class="col-md-10">
+        <p>The below wiki article is based on user submitted content.<br>
+        Please verify <strong>all</strong> hyperlinks and terminal commands below!</p>
+        See a mistake? Want to contribute? <a href="https://github.com/citra-emu/citra/wiki/citra-android-user-data-and-storage/_edit/">Edit this article on Github</a>
+      </div>
+    </div>
+  </div>
+
+	<h1>Citra Android user data and storage</h1>
+	<p>Citra&rsquo;s user data storage on Citra Android Beta 16+ is a bit more complicated than it used to be. This is due to Google mandating that all Android apps need to use SAF (Safe Access Storage) moving forward.</p>
+<h2 id="how-to-set-up-your-citra-user-data-folder">How to set up your Citra user data folder</h2>
+<p>Click to expand:</p>
+<p>Updating from an older Citra version</p>
+<p>After installing a recent Citra build, you&rsquo;ll be greeted by a pop-up to set up a user data folder. Read it and press <code>Ok</code>:</p>
+<p><img src="https://user-images.githubusercontent.com/71992016/226191491-628f86a8-ddee-4ae5-b159-69f1c39eb3ea.png" alt="Popup"></p>
+<p>This will open up a folder browser. Make sure that you&rsquo;re in the &ldquo;root&rdquo; of the storage. The root refers to first directory of a drive, that is <em>not</em> inside of any other folder.</p>
+<p>Since you&rsquo;re updating from an older version, select the <code>citra-emu</code> folder that can be found in the root of your phone&rsquo;s internal storage:</p>
+<p><img src="https://user-images.githubusercontent.com/71992016/226195647-f439a2cb-b5cd-4503-99d5-2d597726c30d.png" alt="Citra data folder"></p>
+<p>Select <code>USE THIS FOLDER</code>:</p>
+<p><img src="https://user-images.githubusercontent.com/71992016/226195848-1dfe1724-174e-4b8b-8b5d-ebc7c5416585.png" alt="Select folder"></p>
+<p>Citra will now be able to access your old data again. All that&rsquo;s left is to set up your game folder again.</p>
+<p>Setting Citra up for the first time</p>
+<p>After installing and then launching Citra, you&rsquo;ll be greeted by a popup. Read it and press <code>Ok</code>:</p>
+<p><img src="https://user-images.githubusercontent.com/71992016/226191491-628f86a8-ddee-4ae5-b159-69f1c39eb3ea.png" alt="Popup"></p>
+<p>This will open up a folder browser. Now you&rsquo;ll need to create and select a folder to use for Citra&rsquo;s user data. You can do this either in your phone&rsquo;s internal storage or SD-Card:</p>
+<p><img src="https://user-images.githubusercontent.com/71992016/226198349-871660dc-42bc-42e1-8ceb-b650c951df0e.png" alt="Create new folder">
+<img src="https://user-images.githubusercontent.com/71992016/226198437-e9a537cf-8655-400f-9cef-bc52b1f0c065.png" alt="Name new folder"></p>
+<p>Open up the folder you&rsquo;ve made and select the <code>USE THIS FOLDER</code> button:</p>
+<p><img src="https://user-images.githubusercontent.com/71992016/226198644-a93d139d-d574-45e2-b818-b20a6a10ce95.png" alt="Select folder"></p>
+<p>And you&rsquo;re done! Now you can move on to setting up a game folder.</p>
+<h2 id="how-to-set-up-your-game-folder">How to set up your game folder</h2>
+<p>After setting up your user data folder, Citra will greet you with another pop-up. Read it and press <code>Ok</code>:</p>
+<p><img src="https://user-images.githubusercontent.com/71992016/226199662-1d1ac159-02b3-4fc4-9b02-8ee26979e936.png" alt="Popup"></p>
+<p>This will open up a folder browser. If you&rsquo;re updating from an older Citra version, you&rsquo;ll already have a folder where you store your ROMs. Open that folder and select <code>USE THIS FOLDER</code>. If you&rsquo;re setting Citra up for the first time, and you haven&rsquo;t made a folder for your ROMs yet, do so now:</p>
+<p><img src="https://user-images.githubusercontent.com/71992016/226198349-871660dc-42bc-42e1-8ceb-b650c951df0e.png" alt="Create new folder">
+<img src="https://user-images.githubusercontent.com/71992016/226200763-04c51535-1394-429a-a91d-006e6612977d.png" alt="Name new folder"></p>
+<p>Open up the folder you&rsquo;ve made and select the <code>USE THIS FOLDER</code> button:</p>
+<p><img src="https://user-images.githubusercontent.com/71992016/226200940-b30e7109-dee8-4420-aff1-09fe8e9c3513.png" alt="Select folder"></p>
+<h2 id="you-have-the-option-of-changing-the-locations-of-these-folders-at-any-time">You have the option of changing the locations of these folders at any time.</h2>
+<p>You can find these options by clicking on the folder icon on the top bar:</p>
+<p><img src="https://user-images.githubusercontent.com/71992016/226202866-e404be47-45d9-4c6b-9041-477819f70d44.png" alt="Top bar">
+<img src="https://user-images.githubusercontent.com/71992016/226203019-ff003364-81c9-4b1b-a8e8-0fa2c5b6df1d.png" alt="Select new location"></p>
+
+
+                </div>
+                <div id="sidebar" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pull-left">
+                    <div id="advertisement" class = "ad">
+  <h3>Advertisement</h3>
+  <ins class="ad adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-4126545610079023"
+       data-ad-slot="4223809695"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<div class="tagcloud hidden-sm hidden-xs">
+  <h3>News Tag Cloud</h3>
+  <ul>
+    
+      <li><a class="taxonomy-citra-release" href="/tags/citra-release">citra-release</a></li>
+    
+      <li><a class="taxonomy-feature-update" href="/tags/feature-update">feature-update</a></li>
+    
+      <li><a class="taxonomy-progress-report" href="/tags/progress-report">progress-report</a></li>
+    
+  </ul>
+</div>
+
+<div id="twitter" class="hidden-sm hidden-xs">
+  <a class="twitter-timeline" data-tweet-limit="3" href="https://twitter.com/citraemu?ref_src=twsrc%5Etfw">Tweet Feed</a>
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</div>
+
+                </div>
+            </div>
+        </div>
+
+        <div id="footer" class="container">
+            <div class="row">
+
+                <div class="col-md-2">
+                    <h1>Citra</h1>
+                    <a href="/entry">Blog</a>
+                    <a href="/download/">Downloads</a>
+                    <a href="/screenshots/">Screenshots</a>
+                    <a href="https://www.patreon.com/citraemu">Patreon</a>
+                    <a href="/donate/">Donate</a>
+                </div>
+
+                <div class="col-md-2">
+                    <h1>Documentation</h1>
+                    <a href="/help/">Help Documents</a>
+                    <a href="/game/">Compatibility</a>
+                    <a href="/wiki/home/">Dev Wiki</a>
+                    <a href="/wiki/faq/">FAQ</a>
+                </div>
+
+                <div class="col-md-2">
+                    <h1>Blog</h1>
+                    <a href="/entry">News &amp; Articles</a>
+                    <a href="https://citra-emu.org/index.xml">RSS 2.0</a>
+                </div>
+
+                <div class="col-md-2">
+                    <h1>Social</h1>
+                    <a href="https://www.youtube.com/channel/UC_dcdgzuapBtAY4ol3x-90Q">YouTube</a>
+                    <a href="https://www.facebook.com/citra.emu">Facebook</a>
+                    <a href="https://twitter.com/citraemu">Twitter</a>
+                    <a href="https://community.citra-emu.org/">Forums</a>
+                    <a href="/discord">Discord</a>
+                    <a href="/chat">IRC</a>
+                    </ul>
+                </div>
+
+                <div class="col-md-2">
+                    <h1>Get Involved</h1>
+                    <a href="https://github.com/citra-emu/citra">GitHub / Source</a>
+                    <a href="https://github.com/citra-emu/citra/issues">Issues</a>
+                    <a href="https://github.com/citra-emu/citra/pulls">Pull Requests</a>
+                </div>
+
+            </div>
+            <div id="footer-bottom">
+                <div id="footer-brand"></div>
+                <div id="footer-legal">Copyright © 2023 Citra Emulator Project</div>
+            </div>
+        </div>
+
+        <script src="https://citra-emu.org/js/script.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css" type="text/css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js" type="text/javascript"></script>
+
+		<script type="text/javascript">
+			window.addEventListener("DOMContentLoaded", function() {
+			baguetteBox.run('.is-img-preview');
+			});
+		</script>
+
+        
+
+        
+    </body>
+
+</html>
