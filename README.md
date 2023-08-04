@@ -1,6 +1,8 @@
 # Citra Official Website
 
-This repository contains the source for the [Citra Emulator](https://github.com/citra-emu/citra) website, which can be found at https://citra-emu.org/.
+This repository contains the source for the [Citra Emulator](https://github.com/citra-emu/citra) website, which can be found [here.](https://citra-emu.org/)
+
+Updater v1.0 releases [here.](https://github.com/citra-emu/citra-web/releases/tag/1.0)
 
 ## Quick Start
 
